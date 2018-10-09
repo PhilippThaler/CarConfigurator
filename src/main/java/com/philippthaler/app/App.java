@@ -1,6 +1,6 @@
 package com.philippthaler;
 
-public class Ap {
+public class App {
 
     public static void main(String[] args) {
         CarConfigurator configurator = new CarConfigurator();
