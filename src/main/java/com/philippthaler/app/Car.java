@@ -1,4 +1,13 @@
-package com.philippthaler;
+package com.philippthaler.app;
+
+/**
+ * @author philipp Thaler
+ * @version 1.0
+ *
+ * Class that represents a car
+ * It has a brand (VW), a model (Golf) and a package (minimal, sport, luxury)
+ * And a price, which is automatically generated
+ */
 
 class Car {
     private CarBrand brand;
@@ -8,12 +17,6 @@ class Car {
 
     public Car() {
         price = 0;
-    }
-
-    public Car(Model model, Package carPackage, double price) {
-        this.model = model;
-        this.carPackage = carPackage;
-        this.price = price;
     }
 
     public CarBrand getBrand() {
@@ -32,6 +35,9 @@ class Car {
         return price;
     }
 
+    /**
+     * @return a String representation of the price. Formatted with 2 decimal places
+     */
     public String getPriceAsString() {
         return String.format("%.2f", price);
     }
@@ -45,6 +51,9 @@ class Car {
         updatePrice();
     }
 
+    /**
+     * @return If the brand, the model and the package ar all chosen, return true, if not, return false.
+     */
     public boolean isCarFinished() {
         return brand != null && model != null && carPackage != null;
     }
@@ -54,10 +63,16 @@ class Car {
         updatePrice();
     }
 
+    /**
+     * Helper Method that automatically updates the price
+     */
     private void updatePrice() {
         price = ((model != null) ? model.getPrice() : 0) + ((carPackage != null) ? carPackage.getPrice() : 0);
     }
 
+    /**
+     * @return a String representation of the car. Displays the brand (if chosen), the model (if chosen) and the package (if chosen)
+     */
     @Override
     public String toString() {
         return String.format("\n\nModel:\t\t%-10s\nPackage:\t%10s\nPrice:\t\t\t\t\t\t\t\t%-6.2f\n\n", (model != null) ? model : "", (carPackage != null) ? carPackage : "", price);

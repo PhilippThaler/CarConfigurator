@@ -1,6 +1,13 @@
-package com.philippthaler;
+package com.philippthaler.app;
 
-public class App {
+
+/**
+ *  @author philipp thaler
+ *  @version 1.0
+ *
+ *  Main class that starts the car configurator
+ */
+class App {
 
     public static void main(String[] args) {
         CarConfigurator configurator = new CarConfigurator();

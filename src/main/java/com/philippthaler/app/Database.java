@@ -1,11 +1,18 @@
-package com.philippthaler;
+package com.philippthaler.app;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Database {
+/**
+ * @author philipp thaler
+ * @version 1.0
+ *
+ * Database class, that holds all car brands, models and packages
+ */
+
+class Database {
 
     private final Map<String, CarBrand> brands = Map.ofEntries(
             Map.entry("VW", new CarBrand("VW")),
@@ -42,24 +49,40 @@ public class Database {
             new Package("Luxus", 10000)
     );
 
-
+    /**
+     * Creates a database
+     */
     public Database() {
 
     }
 
+    /**
+     * @return a List of all models
+     */
     public List<Model> getModels() {
         return models;
     }
 
+    /**
+     * @param brand String representation of a brand
+     * @return a List of models which have the specified brand
+     */
     // Returns a List of all models with a specific brand name
     public List<Model> getModelsFromBrandName(String brand) {
         return models.stream().filter((model -> model.getBrand().getName().equals(brand))).collect(Collectors.toList());
     }
 
+    /**
+     * @return a List of all brands
+     */
     public List<CarBrand> getBrands() {
         return brands.keySet().stream().map(CarBrand::new).collect(Collectors.toList());
     }
 
+
+    /**
+     * @return a List of all packages
+     */
     public List<Package> getPackages() {
         return packages;
     }

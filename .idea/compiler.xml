@@ -9,8 +9,5 @@
         <module name="car-config" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="car-config" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

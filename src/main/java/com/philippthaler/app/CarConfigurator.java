@@ -1,19 +1,31 @@
-package com.philippthaler;
+package com.philippthaler.app;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class CarConfigurator {
+/**
+ * @author philipp thaler
+ * @version 1.0
+ *
+ * UI class, that lets you configure a car in the console
+ */
+class CarConfigurator {
 
     private final Database database;
     private final Car car;
 
+    /**
+     * Creates the CarConfigurator object and initializes the database and a car.
+     */
     public CarConfigurator() {
         database = new Database();
         car = new Car();
     }
 
+    /**
+     * Starts the configuration process.
+     */
     public void start() {
         System.out.println("Car configurator");
 
@@ -22,33 +34,37 @@ public class CarConfigurator {
         while (!finish) {
             printCar();
             switch (input("Choose", Arrays.asList("Brand", "Model", "Package", "Order", "Quit"))) {
-            case 1:
-                chooseBrand();
-                break;
-            case 2:
-                chooseModel();
-                break;
-            case 3:
-                choosePackage();
-                break;
-            case 4:
-                if (car.isCarFinished()) {
+                case 1:
+                    chooseBrand();
+                    break;
+                case 2:
+                    chooseModel();
+                    break;
+                case 3:
+                    choosePackage();
+                    break;
+                case 4:
+                    if (car.isCarFinished()) {
+                        finish = true;
+                        System.out.println("Your car will be ready in 2 weeks. Thank you!");
+                    } else {
+                        System.out.println("Choose all aspects of the configuration first!");
+                    }
+                    break;
+                case 5:
                     finish = true;
-                    System.out.println("Your car will be ready in 2 weeks. Thank you!");
-                } else {
-                    System.out.println("Choose all aspects of the configuration first!");
-                }
-                break;
-            case 5:
-                finish = true;
-                System.out.println("Bye.");
-                break;
-            default:
-                System.out.println("ERROR");
+                    System.out.println("Bye.");
+                    break;
+                default:
+                    System.out.println("ERROR");
             }
         }
     }
 
+
+    /**
+     * Helper method for choosing a brand
+     */
     private void chooseBrand() {
         List<CarBrand> brands = database.getBrands();
         int input = input("Choose the brand: ", brands);
@@ -60,6 +76,10 @@ public class CarConfigurator {
         car.setBrand(brands.get(input - 1));
     }
 
+
+    /**
+     * Helper method for choosing a model
+     */
     private void chooseModel() {
         List<Model> models = (car.getBrand() == null) ? database.getModels()
                 : database.getModelsFromBrandName(car.getBrand().getName());
@@ -79,7 +99,9 @@ public class CarConfigurator {
         car.setCarPackage(packages.get(input - 1));
     }
 
-    // Method to print the configuration of the car
+    /**
+     * Helper method that outputs all components of a car
+     */
     private void printCar() {
         if (car.getModel() == null && car.getBrand() == null && car.getCarPackage() == null) {
             return;
@@ -95,15 +117,22 @@ public class CarConfigurator {
         System.out.printf("\t\tPrice: %45s\n", car.getPriceAsString());
     }
 
-    // Method to print all lists
-    private void printList(List l) {
-        for (int i = 0; i < l.size(); i++) {
-            System.out.printf("%2d. %-30s\n", (i + 1), l.get(i));
+    /**
+     * @param list The list that should get printed
+     *             Outputs all elements of a list
+     */
+    private void printList(List list) {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.printf("%2d. %-30s\n", (i + 1), list.get(i));
         }
     }
 
-    // Method for the input
-    // Checks if it's a number and in range
+    /**
+     * Helper method for the input. Does only return the number if a number between 1 and list.size() gets chosen
+     * @param message The message that gets displayed before the input
+     * @param list The list
+     * @return A number for the input. Can't be smaller than 1 or bigger than list.size()
+     */
     private int input(String message, List list) {
         System.out.println(message);
         printList(list);
